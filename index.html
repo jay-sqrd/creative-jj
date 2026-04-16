@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Javed Jasani — Creative Lead</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #080808;
+    --off-white: #f0ece4;
+    --warm-white: #faf8f4;
+    --gold: #c8a96e;
+    --gold-dim: #7a6542;
+    --mid: #1a1a1a;
+    --border: rgba(200,169,110,0.15);
+    --text-muted: #6b6560;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--off-white);
+    font-family: var(--serif);
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.6;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    padding: clamp(2rem, 5vw, 5rem) clamp(1.5rem, 6vw, 7rem);
+    position: relative;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: clamp(3rem, 8vh, 7rem);
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .hero-name {
+    font-size: clamp(4rem, 10vw, 10rem);
+    font-weight: 300;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    color: var(--warm-white);
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.4s;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-subtitle {
+    margin-top: 2.5rem;
+    font-size: clamp(1rem, 1.8vw, 1.35rem);
+    font-weight: 300;
+    color: var(--text-muted);
+    max-width: 580px;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.6s;
+  }
+
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.8s;
+  }
+
+  .hero-meta span::before {
+    content: '—';
+    margin-right: 0.5rem;
+    opacity: 0.5;
+  }
+
+  .scroll-hint {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 1s;
+  }
+
+  .scroll-line {
+    width: 40px;
+    height: 1px;
+    background: var(--gold-dim);
+    transform-origin: left;
+    animation: scaleX 1.5s ease-in-out infinite alternate 1.5s;
+  }
+
+  /* ─── ABOUT ─── */
+  .about {
+    padding: clamp(5rem, 10vh, 9rem) clamp(1.5rem, 6vw, 7rem);
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  @media (max-width: 768px) {
+    .about { grid-template-columns: 1fr; gap: 2rem; }
+  }
+
+  .about-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding-top: 0.4rem;
+  }
+
+  .about-text {
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--off-white);
+  }
+
+  .about-text p + p { margin-top: 1.4em; }
+
+  .about-text strong {
+    font-weight: 600;
+    color: var(--warm-white);
+  }
+
+  /* ─── WORK SECTION ─── */
+  .work {
+    padding: clamp(4rem, 8vh, 7rem) clamp(1.5rem, 6vw, 7rem);
+  }
+
+  .work-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: clamp(3rem, 6vh, 5rem);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1.5rem;
+  }
+
+  .work-title {
+    font-size: clamp(0.75rem, 1vw, 0.85rem);
+    font-family: var(--mono);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .work-count {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* ─── PROJECT GRID ─── */
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+    gap: 1px;
+    background: var(--border);
+  }
+
+  .project-card {
+    background: var(--black);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s ease;
+  }
+
+  .project-card:hover { background: var(--mid); }
+
+  .project-thumb {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    display: block;
+    opacity: 0.75;
+    transition: opacity 0.4s ease, transform 0.6s ease;
+    filter: grayscale(20%);
+  }
+
+  .project-card:hover .project-thumb {
+    opacity: 1;
+    transform: scale(1.03);
+    filter: grayscale(0%);
+  }
+
+  .project-thumb-wrap {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .project-thumb-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, rgba(8,8,8,0.6) 100%);
+  }
+
+  .project-info {
+    padding: 1.4rem 1.6rem 1.8rem;
+  }
+
+  .project-role {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .project-name {
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--warm-white);
+    margin-bottom: 0.6rem;
+  }
+
+  .project-excerpt {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .project-arrow {
+    position: absolute;
+    top: 1.2rem; right: 1.4rem;
+    width: 28px; height: 28px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 0.3s, transform 0.3s;
+    color: var(--gold);
+    font-size: 0.75rem;
+  }
+
+  .project-card:hover .project-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* ─── MODAL ─── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(8,8,8,0.96);
+    z-index: 900;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .modal {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: clamp(2rem, 5vw, 5rem) clamp(1.5rem, 4vw, 4rem);
+    transform: translateY(30px);
+    transition: transform 0.4s ease;
+    min-height: 100vh;
+  }
+
+  .modal-overlay.open .modal { transform: translateY(0); }
+
+  .modal-close {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 3rem;
+    transition: color 0.2s;
+  }
+
+  .modal-close:hover { color: var(--gold); }
+
+  .modal-close-line {
+    width: 24px; height: 1px;
+    background: currentColor;
+  }
+
+  .modal-role {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .modal-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--warm-white);
+    margin-bottom: 2.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .modal-divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold-dim), transparent);
+    margin-bottom: 2.5rem;
+  }
+
+  .modal-description {
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    line-height: 1.75;
+    color: var(--off-white);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+  }
+
+  .modal-notes {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    font-style: italic;
+    padding-left: 1.5rem;
+    border-left: 2px solid var(--border);
+  }
+
+  .modal-credits {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+  }
+
+  .modal-press {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--gold-dim);
+    letter-spacing: 0.08em;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ─── VIDEO ─── */
+  .modal-section-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    margin-top: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .modal-section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .video-block {
+    margin-bottom: 2.5rem;
+  }
+
+  .video-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.6rem;
+    text-transform: uppercase;
+  }
+
+  .video-wrapper {
+    position: relative;
+    padding-top: 56.25%;
+    background: var(--mid);
+    border: 1px solid var(--border);
+  }
+
+  .video-wrapper iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .video-link {
+    margin-top: 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+  }
+
+  .video-link a {
+    color: var(--gold-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .video-link a:hover { color: var(--gold); }
+
+  /* ─── IMAGES ─── */
+  .image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    margin-top: 1rem;
+  }
+
+  .image-block img {
+    width: 100%;
+    display: block;
+    background: var(--mid);
+    border: none;
+  }
+
+  /* ─── AUDIO ─── */
+  .audio-block {
+    background: var(--mid);
+    border: 1px solid var(--border);
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .audio-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .audio-block audio {
+    width: 100%;
+    filter: invert(1) hue-rotate(180deg);
+  }
+
+  .audio-block a {
+    color: var(--gold-dim);
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    text-decoration: none;
+    display: block;
+    margin-top: 0.5rem;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 3rem clamp(1.5rem, 6vw, 7rem);
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scaleX {
+    from { transform: scaleX(1); }
+    to   { transform: scaleX(1.5); }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    .hero-meta { flex-direction: column; gap: 0.8rem; }
+    .work-header { flex-direction: column; gap: 0.5rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <p class="hero-eyebrow">Selected Creative Work</p>
+    <h1 class="hero-name">Javed<br><em>Jasani</em></h1>
+    <p class="hero-subtitle">Creative lead with 11+ years developing integrated video campaigns for global brands — from concept and scripting through to production and launch across TV, OLV, and social.</p>
+    <div class="hero-meta" style="margin-top:2.5rem">
+      <span>Amazon / Prime</span>
+      <span>Europe &amp; Global</span>
+      <span>Film · Social · OOH</span>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Selected work below</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+  <div class="about-label">About</div>
+  <div class="about-text">
+    <p>I'm a Creative Lead and Senior Conceptual Copywriter at <strong>Amazon's in-house agency</strong> — awarded <strong>Global In-House Company of the Year 2023</strong> at the London International Awards and <strong>Best In-House Agency 2025</strong> at AdAge's A-List.</p>
+    <p>I lead global Prime and retail campaigns, working directly with the European ECD and directing external agencies, editors, and internal teams across the full production lifecycle — from originating concepts and writing scripts through to directing on-set, post-production, and social-native adaptations. I've built enduring creative platforms that have run across 12+ countries.</p>
+    <p>Outside of my day job, I direct <strong>short films and music videos</strong> and write screenplays — which means the craft of filmmaking isn't something I switch on at work. It's just how I think.</p>
+    <p>I'm also a mentor with the <strong>Creative Mentor Network</strong>, dedicated to fostering emerging talent from marginalised and underrepresented communities.</p>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="work">
+  <div class="work-header">
+    <span class="work-title">Selected Projects</span>
+    <span class="work-count">12 works</span>
+  </div>
+
+  <div class="project-grid" id="projectGrid">
+    <!-- Cards injected by JS -->
+  </div>
+</section>
+
+<footer>
+  <span>Javed Jasani — Creative Lead</span>
+  <span>javedjasani.com</span>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalContent">
+    <button class="modal-close" id="modalClose">
+      <div class="modal-close-line"></div>
+      Back to work
+    </button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+const projects = [
+  {
+    id: 'flabd',
+    name: 'Feel Like a Big Deal',
+    role: 'Creative Lead',
+    thumb: 'https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/1674735341336-YK80FKJKNBB4XK72K058/Screenshot%2B2022-11-24%2Bat%2B14.21.25.jpg&format=500w',
+    excerpt: 'A global integrated campaign strategy created for Prime Early Access Sale — so successful it ran for multiple years across 12+ countries.',
+    description: `Feel Like a Big Deal is a strategy I created for a global event in 2022: the Prime Early Access Sale. It was an integrated campaign across TV, Radio, OLV and Social focused on making customers feel like a VIP with access to exclusive, early deals. The campaign ran in UK, US, Mexico, Canada, Germany, France, Italy and Spain. The strategy proved so successful it was used for our biggest sales event Prime Day in 2023 (across even more countries including Poland, Sweden and Turkey), and again for the Prime Big Deal Days — running for both events in 2024.`,
+    audio: [
+      { label: 'UK PEAS Radio 30" - Ethel - Lead up', src: 'https://static1.squarespace.com/static/541d6ca4e4b0c158abe9ae82/t/65e46f17b38aae363ac93032/1709469467058/UK+Radio+30_+-+Ethel+-+Leadup.m4a/original/UK+Radio+30_+-+Ethel+-+Leadup.m4a', link: 'https://static1.squarespace.com/static/541d6ca4e4b0c158abe9ae82/t/65e46f17b38aae363ac93032/1709469467058/UK+Radio+30_+-+Ethel+-+Leadup.m4a/original/UK+Radio+30_+-+Ethel+-+Leadup.m4a' }
+    ],
+    videos: [
+      { label: 'Superfans — Prime Early Access Sale, LeadUp 20" UK', vimeo: '792197500' },
+      { label: 'Paparazzi — Prime Early Access Sale UK OLV 15"', vimeo: '792198222' },
+      { label: 'AmazonPrime — NewsCrew LeadUp 20" UK', vimeo: '792198526' },
+      { label: 'Paid Social 10" 9x16 — Crowd Surfing', vimeo: '801239789' },
+      { label: 'Paid Social 10" 9x16 — Paparazzi', vimeo: '801239826' },
+      { label: 'PEAS Cheer TikTok 15s', vimeo: '801240510' },
+      { label: 'PEAS Red Carpet TikTok 6s', vimeo: '801240533' }
+    ]
+  },
+  {
+    id: 'amazing-delivery',
+    name: 'Amazing Delivery',
+    role: 'Creative Lead',
+    thumb: 'https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/1709485116577-VJPQPIOF9ZWOHSB983WC/Screenshot+2024-03-03+at+16.57.32.png&format=500w',
+    excerpt: 'A hero film using Amazon\'s iconic box and branded blue lights to forge an emotional connection between fast delivery and great entertainment.',
+    description: `Prime wanted to communicate two key benefits of their membership: 'fast delivery' and 'great entertainment'. The short-form spots we had created earlier were highly effective at short-term sales and acquisition — but we needed something that would build long-lasting brand memorability. Something more emotional than rational. More narrative.
+
+So we created "Amazing Delivery" — a spot that leveraged Amazon's iconic box to symbolise fast delivery and blue lights as a branded metaphor for the power of entertainment, blending together to create an engaging film. The success of the spot established this as a new campaign communication platform for Europe.`,
+    notes: `For social we wanted a thread — a blue light, if you will — between the TV/OLV spot and our complementary social campaign. But rather than rehash the spot, we wanted content native to the platform. Prime offers a multitude of benefits that don't always seem to make sense together. We decided to lean into Prime's contradictory nature, tapping into a TikTok trend of 'things that shouldn't work together but do' and infusing the campaign with meme-world elements to maximise engagement with our Gen Z audience.`,
+    videos: [
+      { label: 'Prime — Membership Value 30"', vimeo: '918854652' },
+      { label: 'Yoga Pup — 9x16 10s UK', vimeo: '919193809' },
+      { label: 'Pizza Cat — 9x16 10s UK', vimeo: '919193696' }
+    ],
+    images: ['https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/bfb970e9-fff9-4a5e-8d74-42c2df007d68/Screenshot%2B2023-11-10%2Bat%2B16.14.06.png&format=1000w']
+  },
+  {
+    id: 'deals-that-sing',
+    name: 'Deals That Sing',
+    role: 'Creative Lead (EU)',
+    thumb: 'https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/1738929008135-C0AQ9UH7T22A05BMO59C/Screenshot+2025-02-05+at+15.14.42.png&format=500w',
+    excerpt: 'A global Q4 campaign with adam&eveDDB — bringing back Amazon\'s iconic singing box, breaking awareness records across Europe.',
+    description: `Q4 is our biggest and longest deals event, kicking off with Black Friday and running through Christmas. We needed a global campaign that was simple, hard-hitting and catchy. Working with adam&eveDDB we created a global integrated campaign across TV, Radio, OLV and Social highlighting the excitement and joy that deals season brings.
+
+The campaign marked the return of our famous singing box with a surprise reprise at the end. We extended the idea for our Spring Sale campaign, with record-breaking awareness, likeability and relevance metrics.`,
+    videos: [
+      { label: 'Amazon Spring Deal Days 25 — Lead In UK TVC', vimeo: '1093086281' },
+      { label: 'Q4 BFW Lead Up 20s TV UK', vimeo: '1054447155' },
+      { label: 'BFW Cookie Live 6s 9x16', vimeo: '1054447759' },
+      { label: 'Amazon Spring Deal Days 25 — Mountain Drop Social', vimeo: '1096256992' },
+      { label: 'Q4 BFW Design-led List Live 8s', vimeo: '1054457356' },
+      { label: 'Amazon Spring Deal Days 25 — Bears Social', vimeo: '1096258061' }
+    ]
+  },
+  {
+    id: 'dual-benefits',
+    name: 'Dual Benefits',
+    role: 'Creative Lead',
+    thumb: 'https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/1709905746457-SGDWNCXKT8Z0DMVA549K/Screenshot%2B2024-03-08%2Bat%2B13.47.54.jpg&format=500w',
+    excerpt: 'Prime\'s most successful European campaign platform — running in 8+ countries, expanding internationally into Brazil and beyond.',
+    description: `Building on the success of Prime Tandem, Dual Benefits kept the same hard-hitting value messaging while creating a scalable platform into which all future Prime Video content could be slotted. It has proved to be one of Prime's most successful European campaigns — running in the UK, Germany, France, Italy, Spain, Poland, the Netherlands, and Turkey, and expanding internationally into Brazil.`,
+    notes: `The success of Dual Benefits led to my brief to develop socially-native versions. I led a social-native agency, creatively directing storyboards, transitions and director selection — resulting in punchy, transition-based native videos that outperformed previous Dual Benefits social iterations.`,
+    videos: [
+      { label: 'Prime Dual Benefits — 10s 16x9 UK', vimeo: '919195663' },
+      { label: 'Dual Benefits Q3 — Dog Mum 8s Social Native', vimeo: '1125100368' },
+      { label: 'Dual Benefits Q3 — Chef Boyfriend 10s Social Native', vimeo: '1125100379' },
+      { label: 'Dual Benefits UK — Runner 7s Social Native', vimeo: '1125100417' },
+      { label: 'Dual Benefits Q3 — Get Unready With Me 8s', vimeo: '1125100391' }
+    ]
+  },
+  {
+    id: 'womens-football',
+    name: "Women's Football — UEFA × Amazon",
+    role: 'Creative (Amazon)',
+    thumb: 'https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/1710852610457-1FUPAJ47WDNVJKGP29XN/Screenshot+2024-03-19+at+12.49.36.png&format=500w',
+    excerpt: 'A brand campaign with adam&eveDDB celebrating Amazon\'s sponsorship of UEFA Women\'s Football — \'You bring the grit. We bring the stuff.\'',
+    description: `To celebrate our sponsorship of UEFA Women's Football we worked with adam&eveDDB on a brand campaign. The campaign was a testament to the drive and grit of women athletes. Football is more than just a sport — 94% of C-Suite level women played sports at a young age. The highs and lows, the resilience and determination, the teamwork and self-confidence all forge these women into leaders.
+
+The campaign 'The Grit' showed how Amazon could play the role of perfect companion — providing everything these footballers needed on and off the pitch.`,
+    videos: [
+      { label: 'The Grit — YouTube', youtube: 'RlguiqIfxC0' }
+    ],
+    images: [
+      'https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/5f603465-7e78-4639-91e8-294ef6098e42/Hair+Dye+-+OOH+-+The+Grit&format=1000w',
+      'https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/43b4d608-07fe-4178-9176-a448191fc76c/Ice+Bath_OOH_The+Grit&format=1000w'
+    ]
+  },
+  {
+    id: 'pce',
+    name: 'Prime Changes Everything',
+    role: 'Creative',
+    thumb: 'https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/1674735047646-UB2XQPBPATKJF11P7UE5/Screenshot%2B2023-01-26%2Bat%2B12.07.30.jpg&format=500w',
+    excerpt: 'Social-first content for Prime\'s landmark campaign — using internet mythology and memes to reimagine epic stories for the feed.',
+    description: `When Prime launched its 'Prime Changes Everything' campaign, it came with a promise: to change the way we approached social. No more cutdowns or edits — we wanted to create social-first content.
+
+While TV and OLV featured epic historical narratives with Rapunzel, Napoleon, and Cleopatra, we looked to the internet for its own mythology: memes and viral videos. We created surprising alternate endings showing how Prime benefits changed the outcome — bringing cultural relevance and platform-native engagement to a global campaign.`,
+    videos: [
+      { label: 'Stella — 15s UK Social', vimeo: '790020434' },
+      { label: 'Wing Cat — 15s UK Social', vimeo: '790020808' },
+      { label: 'Viking — 15s 9x16 Social', vimeo: '790021030' }
+    ]
+  },
+  {
+    id: 'prime-tandem',
+    name: 'Prime Tandem',
+    role: 'Director (Football Spot) · Animation Co-Director · Creative',
+    thumb: 'https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/1674737719829-EI8WSLO7EORC86Q6E4YU/Screenshot%2B2023-01-26%2Bat%2B12.54.03.jpg&format=500w',
+    excerpt: 'A format that became Prime\'s most efficient and effective TV platform — reinforcing brand linkage between fast delivery and unmissable entertainment.',
+    description: `How do you remind Prime members there's more to the membership than meets the eye? A surprising number used only delivery, or only Prime Video. Tandem was born to reinforce brand linkage and highlight membership value — originally designed to sit in the same ad-break as a Prime Video trailer.
+
+The spots quickly proved they could stand alone, and the format remains one of the most efficient and effective TV executions Prime has produced.
+
+I directed the live action football spot — from pre-production through to the final cut — as well as co-directing the animation work.`,
+    videos: [
+      { label: 'Football and Delivery (UCL DE) — Directed by Javed Jasani', vimeo: '610593345' },
+      { label: 'XCM & PV Live Sports (UK EPL) Tandem — 10s', vimeo: '790038198' },
+      { label: 'The Boys Season 3 Trailer — 10s OLV UK', vimeo: '1110970924' },
+      { label: 'Without Remorse — 10" XCM Standalone TV', vimeo: '678680799' },
+      { label: 'Every Smile Tells a Story (DE) — 10" OLV', vimeo: '678680733' }
+    ]
+  },
+  {
+    id: 'amazon-rainbow',
+    name: 'Amazon: Rainbow of Hope',
+    role: 'Creative',
+    thumb: 'https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/1689536101661-RFEYLWADGO0SA1EI0AH2/UK_Rainbow+-+CMYK_Outlined.jpg&format=500w',
+    excerpt: '300+ hours of light installations on Amazon buildings, 11MM+ social impressions, 318 positive media articles — born from a rainbow and a lockdown.',
+    description: `During COVID lockdown, as rainbows began appearing across the country as a symbol of hope, we saw an opportunity for Amazon to get involved in a meaningful way. We created a Rainbow filled with thanks to all key workers, published it in newspapers nationwide, and supplemented it with social.
+
+Then the campaign took on a life of its own. Every part of the Amazon business wanted in. We created light installations on Fulfilment Centres and corporate offices, vinyls on delivery vans, email signatures for home workers. Teams from around the world reached out to participate. The result: over 300 hours of rainbow projections across the UK, 11MM+ social impressions, and 318 positive media articles.`,
+    images: [
+      'https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/b42af560-1a9a-488d-9aef-f456f58b2a7b/UK_RainbowofHope_Press_FullPage_Mockup.jpg&format=1000w',
+      'https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/430fd6f0-6b4b-4770-8c43-db3675bfa912/Screenshot+2020-05-04+at+10.26.08.png&format=1000w',
+      'https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/67708093-45e6-49e5-b957-d88bd8f57825/Amazon+Day1+rainbow.gif&format=1000w'
+    ]
+  },
+  {
+    id: 'prime-groceries',
+    name: 'Prime Groceries',
+    role: 'Creative',
+    thumb: 'https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/1674736635087-8S3PGTCCOLXNEPJOZVY9/Screenshot%2B2023-01-26%2Bat%2B12.35.44.jpg&format=500w',
+    excerpt: 'Launching same-day grocery delivery by leaning into Amazon\'s tech identity — and then playfully subverting it.',
+    description: `Prime? Doing groceries? But that's where I get my batteries from!
+
+When Prime launched its same-day grocery delivery, we wanted to play with the expectation of Amazon as a tech supplier — while simultaneously proving that our groceries were fresh, delicious, and above all delivered with the same speed and care Prime Members were used to. "Introducing, groceries!"`,
+    videos: [
+      { label: 'Amazon Prime Grocery — Case Study', vimeo: '845744791' }
+    ]
+  },
+  {
+    id: 'this-is-amazon',
+    name: 'This Is Amazon',
+    role: 'Creative',
+    thumb: 'https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/1674735815033-EYYSW7JMBE2DZR3W366J/Screenshot%2B2023-01-26%2Bat%2B12.18.51.jpg&format=500w',
+    excerpt: 'Documentary-style films bringing Amazon\'s fulfilment centre workers to the fore — their sustainability efforts, their ambitions, their humanity.',
+    description: `'This is Amazon' was a peek behind the curtain of what happens at Amazon Fulfilment Centres — documentary-style spots highlighting the remarkable people that drive Amazon's sustainability efforts. The campaign later evolved into a showcase of how Amazon was supporting FC workers in their own goals and aspirations, such as Camilla, a mechatronics engineer.`,
+    videos: [
+      { label: 'TiA — Fritzi 30" TV (ENG Subs)', vimeo: '678653776' },
+      { label: 'TiA — Sustainability, Brittany 30"', vimeo: '678653493' },
+      { label: 'Amazon Camilla — 30" TV', vimeo: '678677325' }
+    ]
+  },
+  {
+    id: 'my-first-internship',
+    name: 'My First Internship',
+    role: 'Concepting · Writer',
+    thumb: 'https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/1645033643835-PZ8J2IDLY8UGTU6GO3HQ/Cover.png&format=500w',
+    excerpt: 'A proactive side project — a satirical children\'s activity book preparing 6-year-olds for the corporate world.',
+    description: `You've found a new entry level job. Your heart beats faster. This role seems perfect. You're a team player, a go-getter, someone just starting out on their journey — and all you need is 12 years of experience.
+
+With 'My First Internship', we started young. Like, really young. Six years old. We gave the business leaders of the future a head start through an internship at the totally real and not made up at all Big Business Company — where kids learn vital skills: time management (reading clocks), networking (practicing different handshakes), and getting coffee (completing a maze).`,
+    images: [
+      'https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/1645033518449-955C6J2TPVCZSQ7FPRWU/Cover.png&format=1000w',
+      'https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/1645033508203-W47K9SXJP9U0JXYMOUCA/Contents.png&format=1000w',
+      'https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/1645033521619-5979MM3WXFNPQRKRGZAI/Orientation.png&format=1000w',
+      'https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/1645033508211-7WL5XYIKSMK4XTDRURHN/Coffee.png&format=1000w'
+    ]
+  },
+  {
+    id: 'ragelike-cage',
+    name: 'RageLikeCage',
+    role: 'Concepting · Writer',
+    thumb: 'https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/1689633889919-4EKTTRO670WVGU7U46ZB/Nicolas-Cage-screaming-in-the-new-trailer-of-History-of-Swear-Words-via-IndieWire-1990229478.jpg&format=500w',
+    excerpt: 'A proactive side project that landed the front page of Adweek and picked up press from China, Brazil, Russia, and Southern California Public Radio.',
+    description: `Nicolas Cage is a special actor — an enigma, a pop culture icon. We want to ridicule him, yet we're always oddly drawn to his magnetism. Nicolas Cage defies definition. He defies logic. He can be an over-the-top caricature, yet painfully human at the same time. But one thing he can always do is scream.
+
+So we created a web page where fans could finally answer the question: can I Rage like Cage? The site created buzz all over the Cage-iverse — featured on the front page of Adweek, on A.V. Club, and The Next Web, with coverage from China, Brazil, Russia, and a segment on Southern California Public Radio.`,
+    credits: 'Copywriter: Javed Jasani, David Simons | Art Director: Evgeniya Marukhina',
+    press: 'Adweek · A.V. Club · CNBeta (China) · Gente (Brazil) · KSPC · Clenta (Russia) · Loaded (UK) · Sostav (Russia) · The Daily Dot · The Next Web',
+    images: [
+      'https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/1491402320611-XBBZVJHSC2T96C37A93T/image-asset.png&format=1000w',
+      'https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/1491402273388-37VUJ35Q0GC62BB1238V/Screen+Shot+2017-03-27+at+12.08.16+PM.png&format=1000w',
+      'https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/1471597945333-63TG4GSYNM3U6XZIN3LV/step-1-browser.png&format=1000w',
+      'https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/1471597983474-PCBT4VA57NMGK54Q4UK4/step-2.png&format=1000w',
+      'https://images.squarespace-cdn.com/content/v1/541d6ca4e4b0c158abe9ae82/1471598281600-4XYVYTB4ZEW20NT9R48A/step-3.png&format=1000w'
+    ]
+  }
+];
+
+// ─── RENDER CARDS ───
+const grid = document.getElementById('projectGrid');
+projects.forEach((p, i) => {
+  const card = document.createElement('div');
+  card.className = 'project-card';
+  card.style.animationDelay = `${i * 0.05}s`;
+  card.innerHTML = `
+    <div class="project-thumb-wrap">
+      <img class="project-thumb" src="${p.thumb}" alt="${p.name}" loading="lazy">
+    </div>
+    <div class="project-info">
+      <div class="project-role">${p.role}</div>
+      <div class="project-name">${p.name}</div>
+      <div class="project-excerpt">${p.excerpt}</div>
+    </div>
+    <div class="project-arrow">↗</div>
+  `;
+  card.addEventListener('click', () => openModal(p));
+  grid.appendChild(card);
+});
+
+// ─── MODAL ───
+const overlay = document.getElementById('modalOverlay');
+const modalBody = document.getElementById('modalBody');
+const closeBtn = document.getElementById('modalClose');
+
+function openModal(p) {
+  let html = `
+    <div class="modal-role">${p.role}</div>
+    <h2 class="modal-title">${p.name}</h2>
+    <div class="modal-divider"></div>
+    <p class="modal-description">${p.description.replace(/\n\n/g, '</p><p class="modal-description">')}</p>
+  `;
+
+  if (p.notes) html += `<p class="modal-notes">${p.notes}</p>`;
+  if (p.credits) html += `<p class="modal-credits">Credits: ${p.credits}</p>`;
+  if (p.press) html += `<p class="modal-press">Press: ${p.press}</p>`;
+
+  if (p.audio && p.audio.length) {
+    html += `<div class="modal-section-label">Audio</div>`;
+    p.audio.forEach(a => {
+      html += `<div class="audio-block">
+        <div class="audio-label">${a.label}</div>
+        <audio controls><source src="${a.src}" type="audio/mp4"></audio>
+        <a href="${a.link}" target="_blank">Direct link ↗</a>
+      </div>`;
+    });
+  }
+
+  if (p.videos && p.videos.length) {
+    html += `<div class="modal-section-label">Video</div>`;
+    p.videos.forEach(v => {
+      const src = v.vimeo
+        ? `https://player.vimeo.com/video/${v.vimeo}`
+        : `https://www.youtube.com/embed/${v.youtube}`;
+      const link = v.vimeo
+        ? `https://vimeo.com/${v.vimeo}`
+        : `https://www.youtube.com/watch?v=${v.youtube}`;
+      html += `<div class="video-block">
+        <p class="video-label">${v.label}</p>
+        <div class="video-wrapper">
+          <iframe src="${src}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; accelerometer; clipboard-write; encrypted-media; gyroscope" allowfullscreen></iframe>
+        </div>
+        <p class="video-link"><a href="${link}" target="_blank">Open video ↗</a></p>
+      </div>`;
+    });
+  }
+
+  if (p.images && p.images.length) {
+    html += `<div class="modal-section-label">Images</div><div class="image-grid">`;
+    p.images.forEach(img => {
+      html += `<div class="image-block"><img src="${img}" alt="" loading="lazy"></div>`;
+    });
+    html += `</div>`;
+  }
+
+  modalBody.innerHTML = html;
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('modalContent').scrollTop = 0;
+}
+
+function closeModal() {
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+closeBtn.addEventListener('click', closeModal);
+overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
